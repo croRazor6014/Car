@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * Created by lovro.vrlec on Apr,2021
  */
 
-@ResponseStatus(HttpStatus.BAD_REQUEST)
+@ResponseStatus(HttpStatus.NOT_FOUND)
 public class NonExistentCarException extends Exception{
 }

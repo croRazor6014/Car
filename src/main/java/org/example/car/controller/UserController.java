@@ -1,6 +1,5 @@
 package org.example.car.controller;
 
-import static org.example.car.config.RestURIConstants.CAR;
 import static org.example.car.config.RestURIConstants.USER;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -12,10 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Created by lovro.vrlec on Apr,2021
+ *
+ * UserController is Rest API controller for User object.
  */
 
 @Slf4j
-@Tag(name = "Car Controller", description = "Car Controller")
+@Tag(name = "User Controller", description = "User Controller")
 @RestController
 @CrossOrigin
 @RequestMapping(USER)

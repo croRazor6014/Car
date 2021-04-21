@@ -1,6 +1,5 @@
 package org.example.car.controller;
 
-import static org.example.car.config.RestURIConstants.CAR;
 import static org.example.car.config.RestURIConstants.ORDER;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -12,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Created by lovro.vrlec on Apr,2021
+ *
+ * OrderController is Rest API controller for Order object.
  */
 
 @Slf4j

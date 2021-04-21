@@ -7,6 +7,12 @@ public interface View {
   interface Basic {
   }
 
+  interface Detail extends Basic {
+  }
+
+  interface History {
+  }
+
   interface Ignore {
   }
 }

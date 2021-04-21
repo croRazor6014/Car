@@ -16,7 +16,7 @@ import org.hibernate.envers.RevisionEntity;
  */
 //
 @Entity
-@JsonView(View.Basic.class)
+@JsonView(View.History.class)
 @Table(name = "REVINFO")
 @AttributeOverrides( {
                         @AttributeOverride(name = "timestamp", column = @Column(name = "REVTSTMP")),
@@ -25,7 +25,7 @@ import org.hibernate.envers.RevisionEntity;
 @RevisionEntity(EnversListener.class)
 public class ExtendedRevEntity extends DefaultRevisionEntity{
 
-  @JsonView(View.Basic.class)
+  @JsonView(View.History.class)
   @Column(name = "username")
   private String username;
 

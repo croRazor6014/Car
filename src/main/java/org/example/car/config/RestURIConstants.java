@@ -5,6 +5,9 @@ package org.example.car.config;
  */
 public class RestURIConstants {
 
+  public static final String ID = "/{id}";
+  public static final String UUID = "/{uuid}";
+
   //CAR URIs
   public static final String CAR = "/api/car";
 

@@ -1,14 +1,20 @@
 package org.example.car.model;
 
 import java.io.Serializable;
+import java.security.acl.Owner;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,7 +42,7 @@ public class Car implements Serializable {
   @JsonView( {View.Basic.class})
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long id;
+  private long id;
 
   @JsonView({View.Basic.class})
   @Type(type = "uuid-char")
@@ -44,4 +50,10 @@ public class Car implements Serializable {
 
   @JsonView({View.Basic.class})
   private String name;
+
+  @JsonView({View.Basic.class})
+  @JsonIgnoreProperties(value = {"ownedCars"}, allowSetters = true)
+  @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+  @JoinColumn(name = "id_owner", insertable = false, updatable = false)
+  private User owner;
 }

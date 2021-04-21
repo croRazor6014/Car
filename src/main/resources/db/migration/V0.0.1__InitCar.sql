@@ -47,53 +47,6 @@ create table example_order
         foreign key (id_car) references example_car (id)
 );
 
-
-create table example_car_history
-(
-    id            bigint auto_increment,
-    uuid          varchar(36) not null,
-    name          varchar(100) null,
-    price         float  null,
-    id_owner      bigint null,
-    created_date  timestamp null,
-    modified_date timestamp null,
-    REVTYPE                tinyint,
-    REV                    integer not null,
-    REVEND INTEGER ,
-    primary key (id, REV)
-);
-
-create table example_user_history
-(
-    id            bigint auto_increment,
-    uuid          varchar(36) not null,
-    name          varchar(300) null,
-    surname       varchar(300) null,
-    email         varchar(300) null,
-    cash          float  null,
-    created_date  timestamp null,
-    modified_date timestamp null,
-    REVTYPE                tinyint,
-    REV                    integer not null,
-    REVEND INTEGER ,
-    primary key (id, REV)
-);
-
-create table example_order_history
-(
-    id            bigint auto_increment,
-    uuid          varchar(36) not null,
-    id_user       bigint null,
-    id_car        bigint null,
-    price         float  null,
-    created_date  timestamp null,
-    modified_date timestamp null,
-    REVTYPE                tinyint,
-    REV                    integer not null,
-    REVEND INTEGER ,
-    primary key (id, REV)
-);
-
 create table `example_db`.REVINFO
 (
     REV int auto_increment

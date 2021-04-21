@@ -4,11 +4,15 @@ import java.io.Serializable;
 import java.util.UUID;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,12 +40,23 @@ public class Order implements Serializable {
   @JsonView( {View.Basic.class})
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long id;
+  private long id;
 
   @JsonView({View.Basic.class})
   @Type(type = "uuid-char")
   private UUID uuid;
 
   @JsonView({View.Basic.class})
-  private String name;
+  @JsonIgnoreProperties(value = {"orders"}, allowSetters = true)
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "id_user", insertable = false, updatable = false)
+  private User orderer;
+
+  @JsonView({View.Basic.class})
+  @JsonIgnoreProperties(value = {"owner"}, allowSetters = true)
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "id_car", insertable = false, updatable = false)
+  private Car car;
+
+
 }

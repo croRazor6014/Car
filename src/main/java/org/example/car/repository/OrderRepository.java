@@ -1,5 +1,8 @@
 package org.example.car.repository;
 
+import java.util.Optional;
+import java.util.UUID;
+
 import org.example.car.model.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -14,4 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface OrderRepository extends RevisionRepository<Order, Long, Long>,
     JpaRepository<Order, Long>, JpaSpecificationExecutor<Order> {
+
+  Optional<Order> findOrderByUuidEquals(UUID uuid);
 }

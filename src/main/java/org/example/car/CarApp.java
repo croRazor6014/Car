@@ -24,7 +24,6 @@ public class CarApp extends SpringBootServletInitializer {
    */
   @Override
   protected SpringApplicationBuilder configure(SpringApplicationBuilder springApplicationBuilder) {
-
     return springApplicationBuilder.sources(CarApp.class);
   }
 
