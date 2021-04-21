@@ -1,0 +1,47 @@
+## Spring DATASOURCE (DataSourceAutoConfiguration & DataSourceProperties)
+server:
+  port: 8088
+profiles:
+  active: local
+
+logging.level.org.zalando.logbook: TRACE
+logbook:
+  obfuscate:
+    parameters:
+      - password
+  exclude:
+    - /actuator/health
+
+tracer:
+  traces:
+    X-Flow-ID: flow-id
+---
+spring:
+  profiles: local
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/example_db?autoReconnect=true&allowPublicKeyRetrieval=false&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: root
+
+
+  ## Hibernate Properties
+  jpa:
+    # The SQL dialect makes Hibernate generate better SQL for the chosen database
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL57Dialect
+
+    # Hibernate ddl auto (create, create-drop, validate, update)
+    hibernate:
+      ddl-auto: update
+      use-new-id-generator-mappings: false
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      id:
+        new_generator_mappings: false
+    show-sql: true
+
+logging:
+  level:
+    dt.pannet.inventory: TRACE
