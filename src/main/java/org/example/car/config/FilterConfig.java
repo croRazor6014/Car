@@ -13,6 +13,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class FilterConfig implements WebMvcConfigurer {
 
+  /**
+   * @param argumentResolvers argumentResolvers
+   */
   @Override
   public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
     argumentResolvers.add(new SpecificationArgumentResolver());

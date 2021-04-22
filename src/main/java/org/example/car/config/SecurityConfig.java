@@ -18,6 +18,11 @@ public class SecurityConfig {
   @Configuration
   @Order(1)
   public static class SecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
+
+    /**
+     * Registers authentication filter.
+     * @return FilterRegistrationBean.
+     */
     @SuppressWarnings("unchecked")
     @Bean
     public FilterRegistrationBean authenticationFilterRegistration() {
@@ -26,12 +31,18 @@ public class SecurityConfig {
       return registration;
     }
 
+    /**
+     * @return GenericFilterBean
+     */
     @Bean
     public GenericFilterBean authenticationFilter() {
-
       return new AuthenticationFilter();
     }
 
+    /**
+     * @param http http to be secured.
+     * @throws Exception exception.
+     */
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
       http
@@ -41,6 +52,11 @@ public class SecurityConfig {
           .addFilterAfter(authenticationFilter(), BasicAuthenticationFilter.class);
     }
 
+    /**
+     *  CORS
+     * @param web web.
+     * @throws Exception exception.
+     */
     @Override
     public void configure(final WebSecurity web) throws Exception {
       web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**");

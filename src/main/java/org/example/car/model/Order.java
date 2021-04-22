@@ -50,7 +50,7 @@ public class Order implements Serializable {
   @JsonIgnoreProperties(value = {"orders"}, allowSetters = true)
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "id_user", insertable = false, updatable = false)
-  private User orderer;
+  private User user;
 
   @JsonView({View.Basic.class})
   @JsonIgnoreProperties(value = {"owner"}, allowSetters = true)

@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -52,14 +53,14 @@ public class CarController {
   private final ModelMapper modelMapper;
 
   /**
-   * Rest API "/api/car/{id}" for fetching information about car object.
+   * Rest API "/api/car/{uuid}" for fetching information about car object.
    *
    * @param uuid Car id
    * @return Car object {@link org.example.car.model.Car}
    */
   @JsonView(View.Basic.class)
   @Operation(
-      summary = "Find Car by ID",
+      summary = "Find Car by UUID",
       description = "Returns a Car object",
       tags = {"Car"})
   @ApiResponses(
@@ -72,6 +73,33 @@ public class CarController {
       @Parameter(description = "UUID of the Car. Cannot be empty.", required = true)
       @PathVariable("uuid") final java.util.UUID uuid) throws NonExistentCarException {
     return responseHttpOk(carService.findCarByUUID(uuid).orElseThrow(NonExistentCarException::new));
+  }
+
+  /**
+   * Rest API "/api/car/{uuid}" for saving updted Car objects.
+   *
+   * @param carDto Car dto
+   * @return Car object {@link org.example.car.model.Car}
+   */
+  @JsonView(View.Basic.class)
+  @Operation(
+      summary = "updates Car object",
+      description = "Returns a Car object",
+      tags = {"Car"})
+  @ApiResponses(
+      value = {
+          @ApiResponse(responseCode = "200", description = "successful operation"),
+          @ApiResponse(responseCode = "404", description = "Car not found.")})
+  @PutMapping(value = UUID, produces = "application/json")
+  public @ResponseBody
+  ResponseEntity<Car> updateCar(
+      @Parameter(description = "UUID of the Car. Cannot be empty.", required = true)
+      @PathVariable("uuid") final java.util.UUID uuid,
+      @RequestBody CarDto carDto) throws NonExistentCarException {
+    Car dbCar = carService.findCarByUUID(uuid).orElseThrow(NonExistentCarException::new);
+    carDto.setUuid(uuid);
+    carDto.setId(dbCar.getId());
+    return responseHttpOk(carService.updateCar(convertToEntity(carDto)));
   }
 
   /**
@@ -123,6 +151,11 @@ public class CarController {
     return responseHttpOk(carService.findCars(specification,pageable));
   }
 
+  /**
+   *
+   * @param componentDTO dto
+   * @return Car from CarDto
+   */
   private Car convertToEntity(CarDto componentDTO) {
     return modelMapper.map(componentDTO, Car.class);
   }

@@ -17,6 +17,11 @@ import org.springframework.data.domain.Page;
  */
 @Configuration
 public class UtilConfig {
+
+  /**
+   * Json views override for page
+   * @return Module
+   */
   @Bean
   public Module springDataPageModule() {
     return new SimpleModule().addSerializer(Page.class, new JsonSerializer<Page>() {
@@ -36,6 +41,10 @@ public class UtilConfig {
     });
   }
 
+  /**
+   * util ModelMapper
+   * @return ModelMapper
+   */
   @Bean
   public ModelMapper modelMapper() {
     return new ModelMapper();

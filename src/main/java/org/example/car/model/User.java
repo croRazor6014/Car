@@ -53,15 +53,21 @@ public class User implements Serializable {
   private String name;
 
   @JsonView({View.Basic.class})
+  private String surname;
+
+  @JsonView({View.Basic.class})
+  private String email;
+
+  @JsonView({View.Basic.class})
   @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
   @JoinColumn(name = "id_owner")
   @AuditMappedBy(mappedBy = "owner")
   private Set<Car> ownedCars = new HashSet<>();
 
   @JsonView({View.Basic.class})
-  @JsonIgnoreProperties(value = {"orderer"}, allowSetters = true)
+  @JsonIgnoreProperties(value = {"user"}, allowSetters = true)
   @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
   @JoinColumn(name = "id_user")
-  @AuditMappedBy(mappedBy = "orderer")
+  @AuditMappedBy(mappedBy = "user")
   private Set<Order> orders = new HashSet<>();
 }
