@@ -73,7 +73,7 @@ public class UserController {
           @ApiResponse(responseCode = "404", description = "User not found.")})
   @GetMapping(value = UUID, produces = "application/json")
   public @ResponseBody
-  ResponseEntity<User> findOrderByUUID(
+  ResponseEntity<User> findUserByUUID(
       @Parameter(description = "UUID of the User. Cannot be empty.", required = true)
       @PathVariable("uuid") final java.util.UUID uuid) throws NonExistentUserException {
     return responseHttpOk(userService.findUserByUUID(uuid).orElseThrow(NonExistentUserException::new));
@@ -96,8 +96,8 @@ public class UserController {
           @ApiResponse(responseCode = "404", description = "User not found.")})
   @PutMapping(value = UUID, produces = "application/json")
   public @ResponseBody
-  ResponseEntity<User> updateOrder(
-      @Parameter(description = "UUID of the Order. Cannot be empty.", required = true)
+  ResponseEntity<User> updateUser(
+      @Parameter(description = "UUID of the User. Cannot be empty.", required = true)
       @PathVariable("uuid") final java.util.UUID uuid,
       @RequestBody UserDto userDto) throws NonExistentUserException {
     User dbUser = userService.findUserByUUID(uuid).orElseThrow(NonExistentUserException::new);

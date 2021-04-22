@@ -28,7 +28,7 @@ public class OrderServiceImpl implements OrderService {
    */
   @Override
   public Page<Order> findOrders(final Specification<Order> specification, final Pageable pageable) {
-    return null;
+    return orderRepository.findAll(specification,pageable);
   }
 
   /**
@@ -37,7 +37,7 @@ public class OrderServiceImpl implements OrderService {
    */
   @Override
   public Optional<Order> findOrderByUUID(final UUID uuid) {
-    return Optional.empty();
+    return orderRepository.findOrderByUuidEquals(uuid);
   }
 
   /**
@@ -46,7 +46,7 @@ public class OrderServiceImpl implements OrderService {
    */
   @Override
   public Optional<Order> findOrderByID(final long id) {
-    return Optional.empty();
+    return orderRepository.findById(id);
   }
 
   /**

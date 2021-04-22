@@ -11,6 +11,15 @@ logbook:
       - password
   exclude:
     - /actuator/health
+management:
+  endpoints:
+    enabled-by-default: false
+  endpoint:
+    info:
+      enabled: true
+    mappings:
+      enabled: true
+
 
 tracer:
   traces:
@@ -44,4 +53,4 @@ spring:
 
 logging:
   level:
-    dt.pannet.inventory: TRACE
+    org.example.car: TRACE

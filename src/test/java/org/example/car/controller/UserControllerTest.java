@@ -1,23 +1,16 @@
 package org.example.car.controller;
 
-import static org.example.car.config.RestURIConstants.CAR;
-import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.atLeastOnce;
-import static org.mockito.Mockito.verify;
+import static org.example.car.config.RestURIConstants.USER;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.example.car.config.RestURIConstants;
-import org.example.car.model.Car;
-import org.example.car.model.dto.CarDto;
+import org.example.car.model.dto.UserDto;
 import org.example.car.model.jsonviews.View;
-import org.example.car.service.CarService;
+import org.example.car.service.UserService;
 import org.example.car.util.ModelConverterHelper;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,53 +34,52 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
  */
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(CarController.class)
+@WebMvcTest(UserController.class)
 @AutoConfigureMockMvc
 @ContextConfiguration(classes = {
     RestURIConstants.class}, initializers =
                           ConfigFileApplicationContextInitializer.class)
 @WebAppConfiguration
-public class CarControllerTest {
+public class UserControllerTest {
 
   public static final String UUID = "/123e4567-e89b-12d3-a456-426655440000";
-
   private MockMvc mockMvc;
 
   @Mock
-  private CarService mockCarService;
+  private UserService mockUserService;
 
   @Spy
   private ModelMapper modelMapper =new ModelMapper();
 
   @InjectMocks
-  private CarController carControllerUnderTest;
+  private UserController userControllerUnderTest;
 
   @Before
   public void setUp() {
     MockitoAnnotations.initMocks(this);
-    mockMvc = MockMvcBuilders.standaloneSetup(carControllerUnderTest).dispatchOptions(true).build();
+    mockMvc = MockMvcBuilders.standaloneSetup(userControllerUnderTest).dispatchOptions(true).build();
+
   }
 
   @Test
-  public void findCarByUUID() throws Exception {
-    mockMvc.perform(get(CAR + UUID).contentType(MediaType.APPLICATION_JSON))
-        .andExpect(status().isNotFound());
+  public void findUserByUUID() throws Exception {
+    mockMvc.perform(get(USER + UUID).contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isBadRequest());
   }
 
   @Test
-  public void updateCar() throws Exception {
-    final CarDto testCarDto = new CarDto();
-    mockMvc.perform(put(CAR + UUID).contentType(MediaType.APPLICATION_JSON).
-        content(ModelConverterHelper.toJson(View.Basic.class, testCarDto))).andExpect(status().isNotFound());
+  public void updateUser() throws Exception{
+    final UserDto testUserDto = new UserDto();
+    mockMvc.perform(put(USER + UUID).contentType(MediaType.APPLICATION_JSON).
+        content(ModelConverterHelper.toJson(View.Basic.class, testUserDto))).andExpect(status().isBadRequest());
   }
 
   @Test
-  public void addCar() throws Exception {
-    final CarDto testCarDto = new CarDto();
-    mockMvc.perform(post(CAR).
-        contentType(MediaType.APPLICATION_JSON).content(ModelConverterHelper.toJson(View.Basic.class, testCarDto)))
+  public void addUser() throws Exception{
+    final UserDto testUserDto = new UserDto();
+    mockMvc.perform(post(USER ).
+        contentType(MediaType.APPLICATION_JSON).content(ModelConverterHelper.toJson(View.Basic.class, testUserDto)))
         .andExpect(status().isOk());
   }
-
 
 }
