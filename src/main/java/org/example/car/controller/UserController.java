@@ -15,14 +15,10 @@ import lombok.extern.slf4j.Slf4j;
 import net.kaczmarzyk.spring.data.jpa.domain.Like;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
-import org.example.car.model.Order;
 import org.example.car.model.User;
-import org.example.car.model.dto.OrderDto;
 import org.example.car.model.dto.UserDto;
-import org.example.car.model.exception.NonExistentOrderException;
 import org.example.car.model.exception.NonExistentUserException;
 import org.example.car.model.jsonviews.View;
-import org.example.car.service.OrderService;
 import org.example.car.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -148,8 +144,9 @@ public class UserController {
   public @ResponseBody
   ResponseEntity<Page<User>> findUser(
       @And( {
-                @Spec(path = "user.name", params = "nameUser", spec = Like.class),
-                @Spec(path = "car.name", params = "nameCar", spec = Like.class)})
+                @Spec(path = "name", params = "name", spec = Like.class),
+                @Spec(path = "surname", params = "nameCar", spec = Like.class),
+                @Spec(path = "email", params = "email", spec = Like.class)})
           Specification<User> specification,
       Pageable pageable) {
     return responseHttpOk(userService.findUsers(specification,pageable));

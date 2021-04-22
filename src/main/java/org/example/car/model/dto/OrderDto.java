@@ -26,5 +26,9 @@ public class OrderDto implements Serializable {
   private UUID uuid;
 
   @JsonView({View.Basic.class})
-  private String name;
+  private UserDto user;
+
+  @JsonView({View.Basic.class})
+  private CarDto car;
+
 }
